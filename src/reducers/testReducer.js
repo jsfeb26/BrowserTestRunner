@@ -24,6 +24,7 @@ const initialState = {
   passedTestCount: 0,
   failedTestCount: 0,
   runningTestCount: 0,
+  finishedRunning: false,
   tests: tests.map((test, index) => {
     return {
       ...test,
@@ -48,7 +49,8 @@ export default function(state = initialState, action) {
         ...state,
         runningTestCount: state.runningTestCount - 1,
         failedTestCount: !action.testPassed ? state.failedTestCount + 1 : state.failedTestCount,
-        passedTestCount: action.testPassed ? state.passedTestCount + 1 : state.passedTestCount
+        passedTestCount: action.testPassed ? state.passedTestCount + 1 : state.passedTestCount,
+        finishedRunning: state.runningTestCount - 1 === 0
       };
       const currTest = updatedState.tests.find((test) => test.id === action.test.id);
       currTest.status = action.testPassed ? 'PASSED' : 'FAILED';

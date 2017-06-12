@@ -18,11 +18,23 @@ Runner.propTypes = {
   runTests: PropTypes.func
 };
 
-function Runner({ tests, passedTestCount, failedTestCount, runningTestCount, runTests }) {
+function Runner({
+  tests,
+  passedTestCount,
+  failedTestCount,
+  runningTestCount,
+  finishedRunning,
+  runTests
+}) {
   return (
     <div>
       <div>
-        <button onClick={() => runTests(tests)}>Start Tests</button>
+        <div>
+          <button onClick={() => runTests(tests)}>Start Tests</button>
+          {finishedRunning &&
+            <span className="finished">FINISHED!!!</span>
+          }
+        </div>
         <div>{`Number of passed tests: ${passedTestCount}`}</div>
         <div>{`Number of failed tests: ${failedTestCount}`}</div>
         <div>{`Number of running tests: ${runningTestCount}`}</div>
